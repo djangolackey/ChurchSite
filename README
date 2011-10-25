@@ -1,0 +1,3 @@
+This package will be primarily useful to people attempting to build a website for a church. I'm not including all of the necessary graphics for the styling, because some of them are copyrighted outside of my license. 
+
+The project requires a current version of Django and PIL
