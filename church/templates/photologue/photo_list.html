@@ -1,0 +1,32 @@
+{% extends "photologue/root.html" %}
+
+{% block title %}All Photos{% endblock %}
+
+{% block headline %}
+<h2 class="content_headline">All Photos</h2>
+{% endblock %}
+
+{% block content %}
+{% if object_list %}
+    <div class="gallery_list">
+    {% for photo in object_list %}
+    <div class="gallery-photo{% if forloop.counter0|divisibleby:"4" %} first_row_item{% endif %}">
+        <a href="{{ photo.get_absolute_url }}"><img src="{{ photo.get_large_thumbnail_url }}" alt="{{ photo.title }}"/></a>
+    </div>
+    {% endfor %}
+    <div class="clr"></div>
+    </div>
+{% else %}
+<p>No photos were found.</p>
+{% endif %}
+
+{% if is_paginated %}
+<div class="bottom_pagination">
+    <p>{{ hits }} photos total.</p>
+    <div id="page_controls">
+        <p>{% if has_previous %}<a href="{% url pl-photo-list previous %}">Previous</a> | {% endif %} page {{ page }} of {{ pages }} {% if has_next %}| <a href="{% url pl-photo-list next %}">Next</a>{% endif %}</p>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

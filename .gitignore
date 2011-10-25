@@ -1,0 +1,10 @@
+# Ignore my secret settings.
+secret.py
+# Ignore BBedits copies
+*.html~
+*.py~
+# Ignore compiled files.
+*.pyc
+# Ignore svn repo files
+.svn
+*.svn*

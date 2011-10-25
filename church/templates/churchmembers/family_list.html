@@ -1,0 +1,50 @@
+{% extends "churchmembers/base_members.html" %}
+
+{% block title %}Church Families{% endblock %}
+{% block body_id %}family_list_page{% endblock %}
+
+{% load i18n %}
+
+{% block headline %}
+  <h2 class="content_headline">Harmony Families</h2>
+{% endblock %}
+
+
+{% block content %}
+  {% load blog markup comments inlines %}
+  {% for family in object_list %}
+      {% ifequal family.status 1 %}
+      <div class="family_item{% if forloop.counter0|divisibleby:"2" %} clr{% endif %}" id="family-{{ family.id }}">
+        <h3><a href="{{ family.get_absolute_url }}">{{ family.name }} Family</a></h3>
+        {% if family.member_set.all %}<h4>Family members:</h4>
+        <ul>{% for member in family.member_set.all %}<li><a href="{{ member.profile.get_absolute_url }}">{{ member.profile.user.get_full_name }}</a></li>{% endfor %}</ul>{% endif %}
+        {% if family.address or family.address2 or family.city or family.state or family.zip %}
+        <h4>Address:</h4>
+        <ul>
+        {% if family.address %}<li>{{ family.address }}</li>{% endif %}
+        {% if family.address2 %}<li>{{ family.address2 }}</li>{% endif %}
+        {% if family.city %}<li>{{ family.city }}, {{ family.state }}  {{ family.zip }}</li>{% endif %}
+        </ul>
+        {% endif %}
+        {% if family.phone1 or family.phone2 or family.email or family.website %}
+        <h4>Numbers:</h4>
+        <ul>
+        {% if family.phone1 %}<li>{{ family.phone1 }}</li>{% endif %}
+        {% if family.phone2 %}<li>{{ family.phone2 }}</li>{% endif %}
+        {% if family.email %}<li>{{ family.email }}</li>{% endif %}
+        {% if family.website %}<li>{{ family.website }}</li>{% endif %}
+        </ul>
+        {% endif %}
+      </div>
+      {% endifequal %}
+  {% endfor %}
+{% endblock %}
+
+{% block rightrailcontent %}
+  <h2 class="content_headline">Families</h2>
+  <ul>
+  {% for family in object_list %}
+    <li><a href="{{ family.get_absolute_url }}">{{ family.name }} family</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

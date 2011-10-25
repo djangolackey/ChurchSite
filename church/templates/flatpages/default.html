@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+	{% block title %}{{ flatpage.title }}{% endblock %}
+
+	{% block head %}{% endblock %}
+
+	{% block headline %}{% endblock %}
+
+    {% block content %}
+    <div id="contentpane">
+		<h2 class="content_headline">{{ flatpage.title }}</h2>
+    	{{ flatpage.content }}
+    </div>
+    {% endblock %}
+
+
+	{% block bottom %}{% endblock %}

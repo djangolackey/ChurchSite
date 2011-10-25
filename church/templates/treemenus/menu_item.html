@@ -1,0 +1,57 @@
+{% load tree_menu_tags %}
+
+{% ifequal menu_type "unordered-list" %}
+    {% if menu_item.extension.protected %}
+        {% if user.is_authenticated %}
+			{% if menu_item.has_children %}		   
+    		  {% if menu_item.extension.published %}
+    			<li class="withchild"><span><a href="{{ menu_item.url }}">{{ menu_item.caption }}</span></a>
+					<ul class="child">
+						{% for child in menu_item.children %}
+							{% show_menu_item child %}
+						{% endfor %}
+					</ul>
+				</li>
+			  {% endif %}	
+			{% else %}
+    		  {% if menu_item.extension.published %}
+				<li class="nochild"><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a></li>
+			  {% endif %}
+			{% endif %}
+		{% endif %}
+	{% else %}
+		{% if menu_item.has_children %}		   
+    	  {% if menu_item.extension.published %}
+			<li class="withchild"><span><a href="{{ menu_item.url }}">{{ menu_item.caption }}</span></a>
+				<ul class="child">
+					{% for child in menu_item.children %}
+						{% show_menu_item child %}
+					{% endfor %}
+				</ul>
+			</li>
+		  {% endif %}
+		{% else %}
+		  {% if menu_item.extension.published %}
+			<li class="nochild"><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a></li>
+		  {% endif %}
+		{% endif %}
+	{% endif %}
+{% endifequal %}
+
+{% ifequal menu_type "ordered-list" %}
+	{% if menu_item.has_children %}
+	  {% if menu_item.extension.published %}
+		<li class="withchild"><span><a href="{{ menu_item.url }}">{{ menu_item.caption }}</span></a>
+			<ol class="child">
+			    {% for child in menu_item.children %}
+			        {% show_menu_item child %}
+				{% endfor %}
+			</ol>
+		</li>
+	  {% endif %}
+	{% else %}
+		{% if menu_item.extension.published %}
+		<li class="nochild"><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a></li>
+		{% endif %}
+	{% endif %}
+{% endifequal %}

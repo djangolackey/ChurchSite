@@ -1,0 +1,22 @@
+{% extends "documents/base_documents.html" %}
+
+
+{% block title %}Documents{% endblock %}
+
+
+{% block headline %}
+  <h2>Document Types</h2>
+{% endblock %}
+
+
+{% block content %}
+  <ul class="document_list types">
+  {% for type in object_list %}
+    <li>
+    <a href="{{ type.get_absolute_url }}"><img src="{{ type.still.url }}" alt="type image" /></a>
+    <h3><a href="{{ type.get_absolute_url }}">{{ type.title }}</a></h3>
+    <p>{{ type.description }}</p>
+    </li>
+  {% endfor %}
+  </ul>
+{% endblock %}

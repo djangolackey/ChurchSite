@@ -1,0 +1,28 @@
+{% extends "photologue/root.html" %}
+
+{% load photologue_tags %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block headline %}
+<h2 class="content_headline">{{ object.title }}</h2>
+{% endblock %}
+
+{% block content %}
+
+<div class="gallery-photo">
+    <a href="{{ object.image.url }}"><img src="{{ object.get_large_image_url }}" alt="{{ object.title }}"/></a>
+    {% if object.caption %}<p>{{ object.caption }}</p>{% endif %}
+</div>
+{% if object.public_galleries %}
+<div class="bottom_pagination">
+    <h3>This photo is found in the following galler{{ object.public_galleries|pluralize:"y,ies" }}:</h3>
+    <ol {% if object.public_galleries|length_is:"1" %}class="one_item"{% endif %}>
+    {% for gallery in object.public_galleries %}
+        <li class="{% if forloop.first or forloop.counter0|divisibleby:"2" %}first_row_item{% else %}last_row_item{% endif %}"><span class="link_title"><a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a></span><div class="prev">{% previous_in_gallery object gallery %}<span><< Prev</span></div><div class="next">{% next_in_gallery object gallery%}<span>Next >></span></div><div class="clr"></div></li>
+    {% endfor %}
+    </ol>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block headline %}
+<h2 class="content_headline">Login</h2>
+{% endblock %}
+
+{% block content %}
+	<div class="login">
+	<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+	<script type="text/javascript">  FB.init("984fa452ba7f6cadd6fd38ebd819b6df", "/xd_receiver.htm"); </script>
+
+	{% if not user.is_anonymous %}
+	<p><strong>You are logged in as {{ user.first_name }} {{ user.last_name }}</strong></p>
+
+		{% if user.get_all_permissions %}
+		<h3>Permissions:</h3>
+		<ul>
+			{% for permissions in user.get_all_permissions %}
+			<li>{{ permissions }}</li>
+			{% endfor %}
+		</ul>
+		{% else %}
+		<p>You have not yet been given permission to see most of the personal information on this site. Once you have permissions, they will be listed here. Email Jeff if you do not receive permission to view photos of the kids soon. Thanks.</p>
+		{% endif %}
+	<p><a id="logout" href="/accounts/logout/" onclick='FB.Connect.ifUserConnected(null,function() { window.location = "/accounts/logout/" }); FB.Connect.logoutAndRedirect("/accounts/logout/"); return false;'>Sign out</a></p>
+
+	{% else %}
+	<p>This site has some areas which are restricted to church members and friends of the church in order to protect private information.</p>
+	<p>In order to access all areas of the site you must be registered and approved. Please send an email to <strong>webmaster at harmonypbchurch dot org</strong>. (Hint: Remove the spaces, replace the "at" with an @ and replace the "dot" with a period)</p>
+	{# <p>You can also use your <a href="http://www.facebook.com">Facebook</a> username and password to login using the button below. If you are a friend of Jeff's, you can click the Facebook login button and use your Facebook username and password to login. This process does not give us access to your private Facebook account. We only see your user ID number and a encrypted version of your password.<br /> #}
+	{# <fb:login-button onlogin='window.location="/accounts/login/";'></fb:login-button> #}
+
+	<form action="/accounts/login/" method="post" id="loginform">{% csrf_token %}
+		<fieldset style="text-align:center">
+		{{ form.as_ul }}
+		<input type="hidden" name="next" value="/" />
+		<input type="submit" value="Log in " />
+		</fieldset>
+	</form>
+	{% endif %}
+	</div>
+{% endblock %}

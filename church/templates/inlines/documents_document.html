@@ -1,0 +1,26 @@
+{% if object %}
+  {% ifequal object.status 1 %}<div class="inline document_inline {{ class }}">
+  {% if object.still %}
+  <a href="{{ object.document.url }}"><img src="{{ object.still.url }}" alt="Document image" /></a>
+  {% else %}{% if object.types %}<a href="{{ object.document.url }}"><img src="{{ object.types.still.url }}" alt="{{ object.types.title }} image" /></a>{% endif %}
+  {% endif %}
+  <h3><a href="{{ object.document.url }}">{{ object.title }}</a></h3>
+  <p class="date">Uploaded: {{ object.uploaded|date:"M. d Y" }}</p>
+  <p class="download"><a href="{{ object.document.url }}">>>Download</a></p>
+  </div>
+  {% endifequal %}
+{% else %}
+  <div class="inline document_list_inline">
+  {% for object in object_list %}
+      {% ifequal object.status 1 %}<div class="document_inline">
+      {% if object.still %}<a href="{{ object.document.url }}"><img src="{{ object.still.url }}" alt="Document image" /></a>
+      {% else %}{% if object.types %}<a href="{{ object.document.url }}"><img src="{{ object.types.still.url }}" alt="{{ object.types.title }} image" /></a>
+      {% endif %}{% endif %}
+      <h3><a href="{{ object.document.url }}">{{ object.title }}</a></h3>
+      <p class="date">Uploaded: {{ object.uploaded|date:"M. d Y" }}</p>
+      <p class="download"><a href="{{ object.document.url }}">>> Download</a></p>
+      </div>
+      {% endifequal %}
+  {% endfor %}
+  </div>
+{% endif %}

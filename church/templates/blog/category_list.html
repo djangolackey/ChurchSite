@@ -1,0 +1,22 @@
+{% extends "blog/base_blog.html" %}
+
+
+{% block title %}Pastor's Pen entries categories{% endblock %}
+{% block body_id %}category_list{% endblock %}
+
+
+{% block headline %}
+  <h2>Entry categories</h2>
+{% endblock %}
+
+
+{% block content %}
+  <div class="post_list">
+  {% load markup %}
+  <ul class="link_list">
+    {% for category in object_list %}
+    <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
+    {% endfor %}
+  </ul>
+  </div>
+{% endblock %}

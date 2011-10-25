@@ -1,0 +1,68 @@
+{% extends "profiles/base_profile.html" %}
+
+
+{% block title %}Profile for {{ object.user.get_full_name }}{% endblock %}
+
+
+{% block content_title %}
+{% endblock %}
+
+
+{% block content %}
+  <h2 id="user_name">{{ object.user.get_full_name }}
+    <em id="user_city">{{ object.city }}, {{ object.state }}</em></h2>
+  <h3 id="user_age_and_gender">{{ object.get_gender_display }}{% if object.age %}, {{ object.age }}{% endif %}</h3>
+  {% if object.member %}
+  {% if object.member.photo %}<div class="member_photo"><img src="{{ object.member.photo.url }}" alt="member photo" /></div>{% endif %}
+    {% if not object.member.family.member_set.all|length_is:1 %}Family: <a href="/families/{{ object.member.family.slug }}/">{{ object.member.family.name }}</a>{% endif %}
+    {% if not object.member.lives_with_family %}
+        {% if object.address1 %}<h3>Address</h3>
+        <ul><li>{{ object.address1 }}</li>
+            {% if object.address2 %}<li>{{ object.address2 }}</li>{% endif %}
+            {% if object.city %}<li>{{ object.city }}, {{ object.state }}  {{ object.zip }}</li>{% endif %}
+        </ul>
+        {% endif %}
+    {% else %}
+        {% if object.member.family.address %}<h3>Address</h3>
+        <ul><li>{{ object.member.family.address }}</li>
+            {% if object.member.family.address2 %}<li>{{ object.member.family.address2 }}</li>{% endif %}
+            {% if object.member.family.city %}<li>{{ object.member.family.city }}, {{ object.member.family.state }}  {{ object.member.family.zip }}</li>{% endif %}
+        </ul>
+        {% endif %}
+    {% endif %}
+  {% ifequal object.member.get_status_display "Member" %}<h3>Status: Member</h3><ul>
+    {% if object.member.date_joined %}<li>Joined: {{ object.member.date_joined|date:"M. d, Y" }}</li>{% endif %}
+    {% if object.member.method %}<li>Confirmed by {{ object.member.get_method_display }}</li>{% endif %}
+    {% if object.member.date_baptised %}<li>Baptized: {{ object.member.date_baptised|date:"M. d, Y" }}</li>{% endif %}
+  </ul>
+  {% if object.member.office_set %}<h3>Church Office{{ object.member.office_set.all|pluralize }}</h3><ul>{% for office in object.member.office_set.all %}<li>{{ office.title}}</li>{% endfor %}</ul>{% endif %}
+  {% if object.member.conversion_story %}<h3>Conversion Story:</h3>{{ object.member.conversion_story|linebreaks }}{% endif %}
+  {% else %}
+
+  {% endifequal %}
+  {% else %}
+    {% if object.address1 %}<h3>Address</h3>
+    <ul><li>{{ object.address1 }}</li>
+        {% if object.address2 %}<li>{{ object.address2 }}</li>{% endif %}
+        {% if object.city %}<li>{{ object.city }}, {{ object.state }}  {{ object.zip }}</li>{% endif %}
+    </ul>
+    {% endif %}
+  {% endif %}
+  {% if object.user.service_set.all %}
+  <h3 class="list_title">Services</h3>
+  <ul class="link_list">
+    {% for service in object.user.service_set.all %}
+    <li><a href="{{ service.service_url }}">{{ service.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if object.user.link_set.all %}
+  <h3 class="list_title">Links</h3>
+  <ul class="link_list">
+    {% for link in object.user.link_set.all %}
+    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endblock %}

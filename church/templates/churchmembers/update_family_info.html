@@ -1,0 +1,36 @@
+{% extends "churchmembers/base_members.html" %}
+
+{% block title %}Church Family: {{ object.name }}{% endblock %}
+{% block body_id %}family_detail_page{% endblock %}
+
+{% load i18n %}
+
+{% block headline %}
+  <h2>{{ object.name }}</h2>
+{% endblock %}
+
+
+{% block content %}
+  {% load blog markup comments inlines %}
+  <div class="main_content">
+  <form action="." method="post">
+  <table>
+    {{ form }}
+    <tr><td><input type="button" name="submit" value="submit" /></td></tr>
+  </table>
+  </form>
+  </div>
+
+{% endblock %}
+
+{% block rightrailcontent %}{% load tagging_tags %}{{ block.super }}
+  {% tags_for_object object as tag_list %}
+  {% if tag_list %}
+  <h2>Related tags:</h2>
+  <p class="inline_tag_list">
+  {% for tag in tag_list %}
+  <a href="/pastors-pen/tags/{{ tag|slugify }}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+  </p>
+  {% endif %}
+{% endblock %}

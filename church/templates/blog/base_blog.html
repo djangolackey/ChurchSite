@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block app_label %}
+<div class="blog_label">
+    <h3 class="blog_subtitle"><a href="{% url blog_index %}">Offering the milk and meat of the Word</a></h3>
+</div>
+{% endblock %}
+
+{% block body_class %}blog{% endblock %}
+
+{% block rightrail %}
+{% load blog tagging_tags %}
+<div class="right_rail">
+   {% block rightrailcontent %}
+   <a href="{% url blog_index %}"><img src="{{ MEDIA_URL }}images/blogImage.jpg" alt="Neil Phelan Jr." /></a>
+   <p class="mug_caption">Elder Neil Phelan Jr.</p>
+   <div class="secondary_nav">
+        {% if object.body %}
+        <h2>Printer Friendly</h2>
+        <ul>
+            <li><a href="./print/">Print this Entry</a></li>
+        </ul>
+        {% endif %}
+        <h2>Find Entries</h2>
+        <ul>
+            <li><a href="/pastors-pen/categories/">Blog Categories</a></li>
+            <li><a href="/pastors-pen/search/">Blog Search</a></li>
+            <li><a href="/pastors-pen/2010/">2010 Entries</a></li>
+            <li><a href="http://www.harmonypbarchive.org">Article Archive</a></li>
+        </ul>
+   </div>
+   {% endblock %}
+  <h2>More tags</h2>
+  {% tag_cloud_for_model blog.Post as post_tags with steps=9 min_count=1 distribution=log %}
+  <p class="tag_cloud">{% for tag in post_tags %}<span class="tag-{{tag.font_size }}"><a href="/pastors-pen/tags/{{tag.name|slugify }}/">{{tag.name}}</a></span>{% endfor %}<span class="clr"></span></p>
+   {% get_blogroll as blogroll_list %}
+   {% if blogroll_list %}
+   <div class="blog_roll">
+        <h2>Blog{{ blogroll_list|pluralize }} I recommend</h2>
+        <ul>
+        {% for item in blogroll_list %}
+            <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+        {% endfor %}
+        </ul>
+   </div>
+   {% endif %}
+
+</div>
+{% endblock %}

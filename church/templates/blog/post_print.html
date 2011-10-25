@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en">
+
+<head>
+
+{% load i18n %}
+
+	<title>{% block title %}Pastor's Pen: {{ object.title }}{% endblock %}</title>
+    <link href='http://fonts.googleapis.com/css?family=Tangerine:bold' rel='stylesheet' type='text/css' />
+    <link href='{{ MEDIA_URL }}css/base.css' rel='stylesheet' type='text/css' />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ltie7.css" media="screen" /><![endif]-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<!-- <script type="text/javascript" src="/media/style/main.js"></script> -->
+	<!-- <link rel="stylesheet" type="text/css" media="all" href="media/base.css" /> -->
+	<link rel="Shortcut Icon" type="image/x-icon" href="" />
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <div id="header">
+        <div style="width:750px;margin:0 auto;">
+        <img src="{{ MEDIA_URL }}images/harmonylogo3.png" alt="Harmony Primitive Baptist Church" />
+        </div>
+    </div>
+    <div class="article" style="width:750px;margin:20px auto;">
+
+
+    {% block headline %}
+      <h2>{{ object.title }}</h2>
+      <p class="date">Published: {{ object.publish|date:"j F Y" }}</p>
+      <p class="author">By {{ object.author.get_full_name }}</p>
+      <p class="link"><a href="{{ object.get_absolute_url }}">http://harmonypb.org{{ object.get_absolute_url }}</a></p>
+      <hr />
+    {% endblock %}
+
+
+    {% block content %}
+      {% load blog markup comments inlines %}
+
+      <div class="post_body">
+        {{ object.body|render_inlines|markdown }}
+      </div>
+    {% endblock %}
+
+    </div>
+    <div id="footer" style="">
+        <div class="content_wrapper" style="">
+            <img src="/media/images/churchmembers.jpg" alt="church" style="">
+            <div class="footer_text" style="">
+                <h2>Find Us: </h2>
+                <ul>
+                    <li><span class="hi_lite">Physical Address: </span>416 N Hall St, Donaldson, Arkansas | <a target="_blank" href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=416+N+Hall+St,+Donaldson,+Arkansas&sll=34.240608,-92.919225&sspn=0.001357,0.002441&ie=UTF8&hq=&hnear=416+N+Hall+St,+Donaldson,+Hot+Spring,+Arkansas+71941&ll=34.240774,-92.919188&spn=0.010785,0.019526&t=h&z=16">MAP</a></li>
+                    <li><span class="hi_lite">Mailing Address: </span>P.O. Box 351, Donaldson, AR  71941</li>
+                    <li><span class="hi_lite">Phone: </span>501-337-6666</li>
+                    <li><span class="hi_lite">Email: </span>pastor@harmonypb.org</li>
+                    <li><span class="hi_lite">Facebook: </span><a target="_blank" href="http://www.facebook.com/group.php?gid=224645772518">Harmony Church Group</a> | <a target="_blank" href="http://www.facebook.com/group.php?gid=45633348781">Harmony Youth Group</a></li>
+                </ul>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+</body>
+</html>

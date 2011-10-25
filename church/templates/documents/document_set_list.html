@@ -1,0 +1,18 @@
+{% extends "documents/base_documents.html" %}
+
+
+{% block title %}Document Sets{% endblock %}
+
+
+{% block headline %}
+  <h2>Document Sets</h2>
+{% endblock %}
+
+
+{% block content %}
+  <ul>
+  {% for set in object_list %}
+    <li><a href="{{ set.get_absolute_url }}">{{ set.title }}</a> ({{ set.documents.count }} document{{ set.videos.count|pluralize }})</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

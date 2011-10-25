@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block app_label %}{% endblock %}
+
+{% block body_class %}family{% endblock %}
+
+{% block rightrail %}
+{% load blog tagging_tags %}
+<div class="right_rail">
+   {% block rightrailcontent %}
+   {% if family.photo %}<img src="{{ family.photo.url }}" alt="{{ object.name }} family" />
+   <p class="mug_caption">{{ object.name }} family</p>{% endif %}
+   {% endblock %}
+  <h2>Family tags</h2>
+  {% tag_cloud_for_model churchmembers.Family as family_tags with steps=9 min_count=1 distribution=log %}
+  <p class="tag_cloud">{% for tag in family_tags %}<span class="tag-{{tag.font_size }}"><a href="/family/tags/{{tag.name|slugify }}/">{{tag.name}}</a></span>{% endfor %}<span class="clr"></span></p>
+</div>
+{% endblock %}

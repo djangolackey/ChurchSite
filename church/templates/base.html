@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en">
+
+<head>
+	<title>{% block title %}Harmony Primitive Baptist Church{% endblock %}</title>
+    <link href='http://fonts.googleapis.com/css?family=Tangerine:bold' rel='stylesheet' type='text/css' />
+    <link href='{{ MEDIA_URL }}css/base.css' rel='stylesheet' type='text/css' />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ltie7.css" media="screen" /><![endif]-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<!-- <script type="text/javascript" src="/media/style/main.js"></script> -->
+	<!-- <link rel="stylesheet" type="text/css" media="all" href="media/base.css" /> -->
+	<link rel="Shortcut Icon" type="image/x-icon" href="" />
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <div id="header" style="">
+        <div class="top_left_quarter" style="">
+            <div class="rail_content" style=""></div>
+        </div>
+        <div class="top_right_quarter" style="">
+            <a href="/"><img src="{{ MEDIA_URL }}images/harmonylogo3.png" alt="Harmony Primitive Baptist Church" /></a>
+        </div>
+    </div>
+    <div id="contentArea" style="">
+        <img id="cherryTree" src="{{ MEDIA_URL }}images/cherrytree_30.png" alt="" />
+        <div id="leftRail" style="">
+            <div class="cross_left" style=""></div>
+            <div class="bottom_left_quarter" style="">
+                <div class="rail_content" style="">
+                    <h2 class="menu_logo">Menu</h2>
+                    {% load tree_menu_tags %}
+                    {% show_menu "left_rail_menu" "unordered-list" %}
+                    <h2 class="login_link">Members</h2>
+                        {% if user.is_anonymous %}
+                        <ul class="menu">
+                            <li><a href="/accounts/login">Click to Login</a></li>
+                        </ul>
+                        {% else %}
+                        {% show_menu "left_rail_users" "unordered-list" %}
+                        <ul class="menu">
+                        <li><a href="/profiles/{{ user.username }}/">{{ user.get_full_name }} page</a></li>
+                        <li><a href="/families/{{ user.get_profile.member.family.slug }}/">{{ user.get_profile.member.family }}</a></li>
+                        </ul>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+        <div id="rightSide" style="">
+            <div class="cross_right" style=""></div>
+            <div class="bottom_right_quarter" style="">
+                <div id="mainContent" style="">
+                {% block app_label %}{% endblock %}
+                {% block headline %}{% endblock %}
+                {% block content %}
+                <h2 class="content_headline">Welcome!</h2>
+                <p>Harmony Primitive Baptist Church of Donaldson, Arkansas welcomes you to join with us as we meet together and worship our Lord and Savior Jesus Christ.  We hope you will come visit us soon.</p>
+                <p>Click in the menu on the left to find out more about us.</p>
+                <p>"Come and See!"</p>
+                {% endblock %}
+                </div>
+                {% block rightrail %}{% endblock %}
+            </div>
+        </div>
+        <div class="clr" style=""></div>
+    </div>
+    <div id="footer" style="">
+        <div class="content_wrapper" style="">
+            <img src="/media/images/churchmembers.jpg" alt="church" style="">
+            <div class="footer_text" style="">
+                <h2>Find Us: </h2>
+                <ul>
+                    <li><span class="hi_lite">Physical Address: </span>416 N Hall St, Donaldson, Arkansas | <a target="_blank" href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=416+N+Hall+St,+Donaldson,+Arkansas&sll=34.240608,-92.919225&sspn=0.001357,0.002441&ie=UTF8&hq=&hnear=416+N+Hall+St,+Donaldson,+Hot+Spring,+Arkansas+71941&ll=34.240774,-92.919188&spn=0.010785,0.019526&t=h&z=16">MAP</a></li>
+                    <li><span class="hi_lite">Mailing Address: </span>P.O. Box 351, Donaldson, AR  71941</li>
+                    <li><span class="hi_lite">Phone: </span>501-337-6666</li>
+                    <li><span class="hi_lite">Email: </span>pastor@harmonypb.org</li>
+                    <li><span class="hi_lite">Facebook: </span><a target="_blank" href="http://www.facebook.com/group.php?gid=224645772518">Harmony Church Group</a> | <a target="_blank" href="http://www.facebook.com/group.php?gid=45633348781">Harmony Youth Group</a></li>
+                </ul>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+</body>
+</html>

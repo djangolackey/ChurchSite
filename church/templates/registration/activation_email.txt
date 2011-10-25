@@ -1,0 +1,7 @@
+Thank you for signing up. 
+
+You must activate your account by following the link below within {{ expiration_days }} days or your registration will expire.
+
+{{ site }}{% url registration_activate activation_key %}
+
+Please remember we approve registrations personally to protect our family from predators. 

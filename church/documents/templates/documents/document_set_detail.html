@@ -1,0 +1,19 @@
+{% extends "media/base_documents.html" %}
+
+
+{% block title %}{{ object.title }}{% endblock %}
+
+
+{% block headline %}
+  <h2>{{ object.title }}</h2>
+{% endblock %}
+
+
+{% block content %}
+  <h3>Documents</h3>
+  <ul class="photos_list">
+    {% for document in object.documents.all %}
+    <li><a href="{{ photo.get_absolute_url }}">{{ photo.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

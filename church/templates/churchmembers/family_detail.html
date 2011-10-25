@@ -1,0 +1,55 @@
+{% extends "churchmembers/base_members.html" %}
+
+{% block title %}Church Family: {{ object.name }}{% endblock %}
+{% block body_id %}family_detail_page{% endblock %}
+
+{% load i18n %}
+
+{% block headline %}
+  <h2>{{ object.name }}</h2>
+{% endblock %}
+
+
+{% block content %}
+  {% load blog markup comments inlines %}
+  {% with object as family %}
+  {% ifequal family.status 1 %}
+  <div class="main_content">
+    {% if family.member_set.all %}<h3>Family members:</h3><ul>{% for member in family.member_set.all %}<li><a href="{{ member.profile.get_absolute_url }}">{{ member.profile.user.get_full_name }}</a></li>{% endfor %}</ul>{% endif %}
+    {% if family.address or family.address2 or family.city or family.state or family.zip %}
+    <h3>Address:</h3>
+    <ul>
+    {% if family.address %}<li>{{ family.address }}</li>{% endif %}
+    {% if family.address2 %}<li>{{ family.address2 }}</li>{% endif %}
+    {% if family.city %}<li>{{ family.city }}</li>{% endif %}
+    {% if family.state %}<li>{{ family.state }}</li>{% endif %}
+    {% if family.zip %}<li>{{ family.zip }}</li>{% endif %}
+    </ul>
+    {% endif %}
+    {% if family.phone1 or family.phone2 or family.email or family.website %}
+    <h3>Numbers:</h3>
+    <ul>
+    {% if family.phone1 %}<li>{{ family.phone1 }}</li>{% endif %}
+    {% if family.phone2 %}<li>{{ family.phone2 }}</li>{% endif %}
+    {% if family.email %}<li>{{ family.email }}</li>{% endif %}
+    {% if family.website %}<li>{{ family.website }}</li>{% endif %}
+    </ul>
+    {% endif %}
+  </div>
+  {% else %}
+  <p>No family information available</p>
+  {% endifequal %}
+  {% endwith %}
+{% endblock %}
+
+{% block rightrailcontent %}{% load tagging_tags %}{{ block.super }}
+  {% tags_for_object object as tag_list %}
+  {% if tag_list %}
+  <h2>Related tags:</h2>
+  <p class="inline_tag_list">
+  {% for tag in tag_list %}
+  <a href="/pastors-pen/tags/{{ tag|slugify }}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+  </p>
+  {% endif %}
+{% endblock %}

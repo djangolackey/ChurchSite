@@ -1,0 +1,18 @@
+{% extends "documents/base_documents.html" %}
+
+
+{% block title %}Documents{% endblock %}
+
+
+{% block headline %}
+  <h2>Documents</h2>
+{% endblock %}
+
+
+{% block content %}
+  <ul class="document_list">
+  {% for document in object_list|dictsortreversed:'uploaded' %}
+    <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a> -- {{ document.uploaded|date:"M. d Y" }}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

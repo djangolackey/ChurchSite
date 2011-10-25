@@ -1,0 +1,18 @@
+{% extends "documents/base_documents.html" %}
+
+
+{% block title %}{{ object.title }}{% endblock %}
+
+
+{% block headline %}
+  <h2>{{ object.title }}</h2>
+{% endblock %}
+
+
+{% block content %}
+  <div class="documents type_detail">
+    <img src="{{ type.still.url }}" alt="type image" />
+    <h3>{{ object.title }}</h3>
+    <p>{{ object.description }}</p>
+  </div>
+{% endblock %}

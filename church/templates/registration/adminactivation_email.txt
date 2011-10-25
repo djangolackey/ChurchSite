@@ -1,0 +1,5 @@
+{{ user.first_name }} {{ user.last_name }} with username {{ user.username }} at {{ user.email }} has requested activation of an account on your site. 
+
+Click the link to view their user data <a href="{{ site.domain }}/admin/auth/user/{{ user.id }}/">{{ site.domain }}/admin/auth/user/{{ user.id }}/</a>
+
+Please place this registration in the proper group by visiting the user's profile page. 

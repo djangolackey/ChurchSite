@@ -1,0 +1,30 @@
+{% extends "documents/base_documents.html" %}
+
+
+{% block title %}{{ object.title }}{% endblock %}
+
+
+{% block headline %}
+  <h2>{{ object.title }}</h2>
+{% endblock %}
+
+
+{% block content %}
+  <p>{{ object.description }}</p>
+  <ul class="documents_list">
+    {% for document in object.documents.all %}
+    {% ifequal object.status 1 %}
+      <li class="documents document_list">
+      {% if object.still %}
+      <a href="{{ object.document.url }}"><img src="{{ object.still.url }}" alt="Document image" /></a>
+      {% else %}{% if object.types %}<a href="{{ object.document.url }}"><img src="{{ object.types.still.url }}" alt="{{ object.types.title }} image" /></a>{% endif %}
+      {% endif %}
+      <h3><a href="{{ object.document.url }}">{{ object.title }}</a></h3>
+      <p class="date"><strong>Uploaded: {{ object.uploaded|date:"M. d Y" }}</strong></p>
+      <p class="description">{{ object.description }}</p>
+      <p class="download"><a href="{{ object.document.url }}">>>Download</a></p>
+      </li>
+    {% endifequal %}
+    {% endfor %}
+  </ul>
+{% endblock %}

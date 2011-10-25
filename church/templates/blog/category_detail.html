@@ -1,0 +1,25 @@
+{% extends "blog/base_blog.html" %}
+
+
+{% block title %}Pastor's Pen entries for {{ category.title }}{% endblock %}
+{% block body_id %}category_post_list{% endblock %}
+
+
+{% block headline %}
+  <h2>Entries for {{ category.title }}</h2>
+{% endblock %}
+
+
+{% block content %}
+  {% load markup %}
+  <div class="post_list">
+    {% for post in object_list %}
+    <div class="post_item">
+      <h3 class="title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+      <p class="date">{{ post.publish|date:"Y F d" }}</p>
+      <p class="tease">{{ post.tease }}</p>
+      <p class="more"><a href="{{ post.get_absolute_url }}">>> More</a></p>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

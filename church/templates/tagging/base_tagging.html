@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tag }} {{ type }} items{% endblock %}
+
+{% block headline %}
+    <h2>{{ type }} of {{ tag }}</h2>
+{% endblock %}
+
+{% block content %}
+    {% block object_list %}
+        {% if object_list %}
+        <div class="row {{ type }}">
+            {% for item in object_list %}
+            <div class="{{ type }}_item">
+                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No items were found.</p>
+        {% endif %}
+    {% endblock %}
+
+    {% block pagination %}
+        {% if is_paginated %}
+        <div class="paginatation">
+            <p><strong>&raquo; {{ hits }} total {{ type }} items</strong></p>
+            <div id="page_controls">
+                <p>{% if has_previous %}<a href="{% url pl-photo-list previous %}">&laquo; Previous</a> | {% endif %} page {{ page }} of {{ pages }} {% if has_next %}| <a href="{% url pl-photo-list next %}">Next &raquo;</a>{% endif %}</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

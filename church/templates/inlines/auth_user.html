@@ -1,0 +1,7 @@
+{% if object %}
+   {{ object.username }} -- {{ object.first_name }} {{ object.last_name }}
+{% else %}
+  {% for object in object_list %}
+    {{ object }}
+  {% endfor %}
+{% endif %}
